@@ -161,6 +161,11 @@
     background:rgba(25,55,115,.07);
     border:1px solid rgba(25,55,115,.22);
   }
+
+  /* NEW: sub-navigation inside ASW section */
+  .subnav{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 0}
+  .subnav a{display:inline-block;background:var(--chip-bg);border:1px solid var(--chip-border);border-radius:999px;padding:6px 10px;font-size:13px;color:var(--ink);text-decoration:none}
+  .subnav a:hover{opacity:.9}
 </style>
 </head>
 <body>
@@ -174,7 +179,7 @@
         <a href="#about">About</a>
         <a href="#asw">ASW Poseidon</a>
         <a href="#ultrasound">Portable Ultrasound</a>
-        <a href="#publications">Publications</a>
+        <!-- Removed separate Publications link; references now live under ASW -->
         <a href="team.html">Team</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -206,17 +211,18 @@
         <div class="carousel-track" role="group" aria-roledescription="carousel">
           <div class="slide" id="slide-1" aria-label="ASW Poseidon">
             <div class="card devtech-soft">
-              <strong>ASW Poseidon</strong>
-              <p style="margin-top:6px">State-of-the-art passive surveillance sonar using sea-bottom fixed long arrays or 200-m towed arrays at ~100 m depth.</p>
-              <span class="chip">Passive arrays</span><span class="chip">Adaptive beamforming</span><span class="chip">PLA / C2</span>
+              <strong>ASW Poseidon — Developed Technology (TRL 9)</strong>
+              <p style="margin-top:6px">Passive long‑array surveillance sonar (sea‑bottom fixed or 200 m towed arrays at ~100 m depth) providing wide‑area underwater situational awareness.</p>
+              <span class="chip">TRL 9</span><span class="chip">Passive arrays</span><span class="chip">Adaptive beamforming</span><span class="chip">PLA / C2</span>
             </div>
           </div>
           <div class="slide" id="slide-2" aria-label="Portable Ultrasound">
             <div class="card devtech-soft">
-              <strong>Portable Ultrasound</strong>
-              <p style="margin-top:6px">Handheld, clinician-friendly imaging with secure connectivity for field care and emergency medicine.</p>
-              <span class="chip">eFAST</span><span class="chip">AI CAD</span><span class="chip">4D</span>
+              <strong>Portable Ultrasound — Developed Technology (TRL 6)</strong>
+              <p style="margin-top:6px">First portable volumetric (3D/4D) ultrasound with AI‑guided eFAST and telemedicine GUI for point‑of‑injury care.</p>
+              <span class="chip">TRL 6</span><span class="chip">3D/4D</span><span class="chip">eFAST</span><span class="chip">AI CAD</span><span class="chip">Telemedicine</span><span class="chip">Jetson GPU</span><span class="chip">Planar matrix array</span><span class="chip">~20 vol/s</span>
             </div>
+          </div>
           </div>
         </div>
         <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
@@ -258,40 +264,49 @@
     <section id="asw">
       <h2>ASW Poseidon</h2>
       <div class="card">
-        <p>NOEMAC’s antisubmarine warfare system is a <strong>state-of-the-art passive surveillance sonar</strong> that deploys either a <strong>sea-bottom fixed long hydrophone array</strong> or a <strong>200-m towed array</strong> at approximately 100 m depth. For quiet submarines, sea-bottom fixed arrays provide detection ranges of around <strong>30 nautical miles (~55 km)</strong>.</p>
+        <p><strong>ASW POSEIDON</strong> is NOEMAC’s antisubmarine warfare system, a state‑of‑the‑art passive surveillance sonar at <strong>TRL 9</strong>. It deploys either a sea‑bottom fixed long hydrophone array or a <strong>200 m</strong> towed array at depths of about <strong>100 m</strong>. For quiet submarines, the sea‑bottom fixed hydrophone arrays provide detection ranges of approximately <strong>30 nautical miles (~55 km)</strong>.</p>
+        <p>The signal‑processing algorithms combine <strong>advanced beamformers</strong>, <strong>spectral analysis</strong>, and a <strong>Passive Localization Assistant (PLA)</strong> aimed at addressing the rapid emergence of UUVs, their operational domains, and new communication and swarm behaviors. The goal is to introduce an <strong>AI‑based command‑and‑control (C2)</strong> solution that enhances underwater situational awareness for ASW operations, analogous in role to <strong>AWACS</strong> in the aerial domain.</p>
         <div class="metrics">
-          <span class="metric">Sea-bottom fixed long array</span>
+          <span class="metric">TRL 9</span>
+          <span class="metric">Sea‑bottom fixed long array</span>
           <span class="metric">200 m towed array @ ~100 m</span>
-          <span class="metric">Quiet-sub detection ~30 nm</span>
-          <span class="metric">PLA / C2 (AWACS-like concept)</span>
+          <span class="metric">Quiet‑sub detection ~30 nm</span>
+          <span class="metric">PLA / C2 (AWACS‑like)</span>
         </div>
+        <nav class="subnav" aria-label="ASW Poseidon subsections">
+          <a href="#asw-overview">Overview</a>
+          <a href="#asw-delivery">Delivery & Consultations</a>
+          <a href="#asw-references">Selected References</a>
+        </nav>
       </div>
 
-      <div class="cols-2" style="margin-top:16px">
+      <div id="asw-overview" class="cols-2" style="margin-top:16px">
         <div class="card">
-          <strong>Signal-processing chain</strong>
+          <strong>Signal‑processing chain</strong>
           <ul style="margin:10px 0 0 18px">
-            <li><strong>Advanced beamformers</strong> (adaptive and synthetic-aperture) for narrowband and broadband targets.</li>
+            <li><strong>Advanced beamformers</strong> (adaptive and synthetic aperture) for narrowband and broadband targets.</li>
             <li><strong>Spectral analysis</strong> for classification and track persistence.</li>
-            <li><strong>Passive Localization Assistant (PLA)</strong> and <strong>C2</strong> concepts that address UUVs, modern communications, and swarm behaviors, providing an underwater picture similar in role to AWACS in the air domain.</li>
+            <li><strong>Passive Localization Assistant (PLA)</strong> with C2 integration for UUVs, modern communications, and swarm behaviors.</li>
           </ul>
         </div>
         <div class="card">
-          <strong>Advantages vs competing products</strong>
+          <strong>Advantages versus competing products</strong>
           <ul style="margin:10px 0 0 18px">
-            <li><strong>Adaptive beamformers</strong> reduce strong surface-ship noise and improve detection of quiet broadband targets.</li>
-            <li><strong>Acoustic synthetic-aperture beamformers</strong> increase array gain for narrowband signals by <strong>~3.5 dB</strong>.</li>
+            <li><strong>Adaptive beamformers</strong> minimize strong noise from naval vessels to improve detection of quiet broadband targets.</li>
+            <li><strong>Acoustic synthetic‑aperture beamformers</strong> improve array gain for narrowband signals by approximately <strong>3.5 dB</strong>.</li>
           </ul>
         </div>
       </div>
 
       <div class="card" style="margin-top:16px">
-        <strong>Consulting & Support</strong>
+        <strong>Performance characteristics from operational testing</strong>
         <ul style="margin:10px 0 0 18px">
-          <li><strong>Numerical assessment</strong> and trade studies for the sonar-equation problem.</li>
-          <li><strong>Deployment procedures</strong> for sea-bottom or towed line-array configurations.</li>
-          <li><strong>Training</strong> of sonar operators.</li>
-          <li><strong>Maintenance support</strong> across hardware and software subsystems.</li>
+          <li>Narrow‑band beamforming outputs for slowly moving underwater targets.</li>
+          <li>Spectral analysis for narrow‑band outputs used in classification.</li>
+          <li>Broad‑band beamforming outputs.</li>
+          <li>Signal trackers.</li>
+          <li>Passive Localization Assistant (PLA) for location assessment of detected NB/BB beams.</li>
+          <li>AI tool for automated target classification.</li>
         </ul>
       </div>
 
@@ -306,7 +321,7 @@
           </figure>
           <figure class="card" style="padding:8px">
             <img src="ASW_2.png" alt="LOFAR narrowband beams">
-            <figcaption><strong>Fig. 2:</strong> Detection of a very quiet narrow-band target at approximately 20 nm range.</figcaption>
+            <figcaption><strong>Fig. 2:</strong> Detection of a very quiet narrow‑band target at approximately 20 nm range.</figcaption>
           </figure>
           <figure class="card" style="padding:8px">
             <img src="ASW_3.png" alt="Bearing tracking vs ground truth">
@@ -314,106 +329,38 @@
           </figure>
           <figure class="card" style="padding:8px">
             <img src="ASW_4.png" alt="Passive Localization Assistant display">
-            <figcaption><strong>Fig. 4:</strong> PLA integrating tracking, spectral analysis, and AI tools.</figcaption>
+            <figcaption><strong>Fig. 4:</strong> Passive Localization Assistant (PLA) providing location of detected targets; integrates signal trackers, spectral analysis, and AI tools.</figcaption>
           </figure>
           <figure class="card tall" style="padding:8px">
             <img src="ASW_5.png" alt="Conventional vs sub-aperture MVDR">
-            <figcaption><strong>Fig. 5:</strong> Broad-band beamforming output for a fast-moving vessel.</figcaption>
+            <figcaption><strong>Fig. 5:</strong> Broad‑band output for shipping traffic showing the trajectory of a fast‑moving target crossing many beam directions over a short time.</figcaption>
           </figure>
           <figure class="card" style="padding:8px">
             <img src="ASW_6.png" alt="Sea-bottom fixed array concept of operations">
-            <figcaption><strong>Fig. 6:</strong> Fixed hydrophone array on the sea bottom with peripherals.</figcaption>
+            <figcaption><strong>Fig. 6:</strong> Fixed hydrophone array on the sea bottom with supporting hardware peripherals.</figcaption>
           </figure>
         </div>
 
-        <p style="margin-top:12px;font-size:13px;opacity:.8">The methodologies and findings have been validated and disseminated through peer-reviewed scientific publications. See selected publications below.</p>
-      </div>
-    </section>
-
-    <!-- PORTABLE ULTRASOUND -->
-    <section id="ultrasound">
-      <h2>Portable Ultrasound</h2>
-
-      <!-- Hero row: rewritten description + image -->
-      <div class="product-hero">
-        <div class="card">
-          <p>Our portable <strong>3D volumetric ultrasound</strong> functions like a <strong>“mobile CT scanner for the battlefield”</strong>, delivering instant volumetric imaging that captures all views at once. Powered by integrated AI, the system enables combat medics with minimal ultrasound training to perform diagnostically accurate <strong>eFAST</strong> examinations for the detection of <strong>non-compressible torso hemorrhage (NCTH)</strong>, the leading preventable cause of battlefield deaths.</p>
-
-          <p>The solution combines a <strong>planar matrix-array transducer</strong> with <strong>GPU-accelerated beamforming</strong> on the <strong>NVIDIA Jetson</strong> embedded architecture to achieve <strong>real-time volumetric imaging at ~20 volumes per second</strong>. Proprietary AI provides guided on-screen prompts and automated image interpretation, turning complex ultrasound procedures into intuitive point-and-click actions.</p>
-
-          <div class="product-chips">
-            <span class="chip">Planar matrix array</span>
-            <span class="chip">GPU-accelerated</span>
-            <span class="chip">~20 vol/s</span>
-            <span class="chip">AI-guided eFAST</span>
-            <span class="chip">NCTH detection</span>
-            <span class="chip">TRL 6 → market</span>
-          </div>
-        </div>
-
-        <figure class="card product-figure" style="padding:12px">
-          <img src="CAN_5.png" alt="3D–4D Portable Ultrasound prototype">
-          <figcaption style="margin-top:6px">3D–4D portable ultrasound prototype.</figcaption>
-        </figure>
+        <p style="margin-top:12px;font-size:13px;opacity:.8">The methodologies and findings have been validated and disseminated through peer‑reviewed scientific publications. See ASW selected references below.</p>The methodologies and findings have been validated and disseminated through peer-reviewed scientific publications. See ASW selected references below.</p>
       </div>
 
-      <!-- Two cards like ASW -->
-      <div class="cols-2" style="margin-top:16px">
-        <div class="card">
-          <strong>Technology stack</strong>
-          <ul style="margin:10px 0 0 18px">
-            <li><strong>Planar matrix-array transducer</strong> captures a full 3D volume in a single acquisition.</li>
-            <li><strong>GPU-accelerated beamforming</strong> on embedded <strong>NVIDIA Jetson</strong> delivers low-latency volumetric imaging.</li>
-            <li><strong>Real-time 3D at ~20 volumes per second</strong> supports motion-resilient scans in dynamic field conditions.</li>
-            <li><strong>On-device AI</strong> provides acquisition guidance and automated interpretation for reliable, repeatable exams.</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <strong>Prototype capabilities</strong>
-          <ul style="margin:10px 0 0 18px">
-            <li>Real-time automated detection of trauma-related conditions through advanced AI algorithms.</li>
-            <li>Computer-aided diagnostic tools that guide non-expert users through critical assessments.</li>
-            <li>Immediate, accurate results that enable life-saving interventions within the critical <em>golden hour</em>.</li>
-            <li>Rugged, battlefield-ready design that maintains laboratory-grade accuracy in extreme conditions.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Competitive Advantage -->
-      <div class="card" style="margin-top:16px">
-        <strong>Competitive advantage</strong>
+      <!-- NEW: Delivery subsection now under ASW -->
+      <article id="asw-delivery" class="card" style="margin-top:16px">
+        <h3 style="margin:0 0 8px">System Delivery & Consultations</h3>
+        <p><strong>Delivery timeline:</strong> within <strong>16 months</strong> for a complete sea‑bottom mounted system that includes the hydrophone line array, supporting electronics, the full signal‑processing chain, and the command‑and‑control system.</p>
+        <p><em>Scope note:</em> Deployment of the sea‑bottom mounted hydrophone array is not included. NOEMAC provides consultations for optimum underwater site selection with respect to sonar performance.</p>
         <ul style="margin:10px 0 0 18px">
-          <li><strong>Rapid deployment</strong> by personnel with minimal specialized training through AI-powered automation.</li>
-          <li><strong>Point-of-injury diagnostics</strong> bring sophisticated analysis directly to the casualty.</li>
-          <li><strong>Path to market</strong> advances from TRL 6 experimental prototype to a commercial system upon regulatory compliance and conformance to applicable standards.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- DELIVERY & CONSULTATIONS -->
-    <section id="delivery">
-      <h2>System Delivery & Consultations</h2>
-      <div class="card">
-        <p><strong>Delivery timeline:</strong> within <strong>16 months</strong> for a complete sea-bottom mounted system including hydrophone line array, supporting electronics, signal processing, and command-and-control.</p>
-        <p><em>Note:</em> Deployment of the sea-bottom array is not included. NOEMAC provides consultations for optimal underwater site selection with respect to sonar performance.</p>
-
-        <strong>Consultations & Support include:</strong>
-        <ul style="margin:10px 0 0 18px">
-          <li>Numerical assessment of best options for solving the sonar-equation problem to achieve optimum performance.</li>
-          <li>Deployment procedures for sea-bottom or towed configurations for hydrophone line arrays suited to sonar operations.</li>
+          <li>Numerical assessment of options for the sonar‑equation problem to achieve optimum performance.</li>
+          <li>Deployment procedures for sea‑bottom or towed configurations of line hydrophone arrays suited to sonar operations.</li>
           <li>Training of sonar operators.</li>
-          <li>Maintenance support for hardware and software sub-systems.</li>
+          <li>Maintenance support for hardware and software sub‑systems.</li>
         </ul>
+        <p style="margin-top:10px">ASW Poseidon has been tested in operational environments, with assessment results published in <em>Proceedings of the IEEE</em>.</p>
+      </article>
 
-        <p style="margin-top:10px">NOEMAC’s ASW Poseidon system has been tested in operational environments, with assessment results published in <em>The Proceedings of the IEEE</em>.</p>
-      </div>
-    </section>
-
-    <!-- PUBLICATIONS -->
-    <section id="publications">
-      <h2>Selected Publications</h2>
-      <div class="card">
+      <!-- NEW: References subsection now under ASW -->
+      <article id="asw-references" class="card" style="margin-top:16px">
+        <h3 style="margin:0 0 8px">Selected References (ASW)</h3>
         <ol style="margin-top:10px;padding-left:20px">
           <li>Stergiopoulos, S. (1998). Implementation of Adaptive and Synthetic Aperture Beamformers in Sonar Systems. <em>Proceedings of the IEEE</em>, 86(2), 358–396.</li>
           <li>Stergiopoulos, S. (Ed.). (2009). <em>Advanced Beamformers</em>, in <em>Handbook on Advanced Signal Processing for Sonar, Radar and Medical Imaging Systems</em> (2nd ed.). CRC Press.</li>
@@ -424,7 +371,95 @@
           <li>Stergiopoulos, S., & Urban, H. (1992). Forming a long synthetic aperture in the sea. <em>IEEE J. Oceanic Eng.</em>, 17(1), 62–72.</li>
           <li>Stergiopoulos, S. (1991). Limitations on towed array gain in a non-isotropic ocean. <em>J. Acoust. Soc. Am.</em>, 90(6), 3161–3172.</li>
         </ol>
+      </article>
+    </section>
+
+    <!-- PORTABLE ULTRASOUND -->
+    <section id="ultrasound">
+      <h2>Portable Ultrasound</h2>
+
+      <!-- Summary -->
+      <div class="card">
+        <p><strong>Portable 4D Ultrasound Automated Diagnostic System</strong> — a <strong>developed technology at TRL 6</strong>. It addresses a critical capability gap in battlefield medicine by delivering instant volumetric 3D/4D imaging with <strong>AI‑guided eFAST</strong> for detecting <strong>non‑compressible torso hemorrhage (NCTH)</strong> at the point of injury. A <strong>planar matrix‑array transducer</strong> with <strong>GPU‑accelerated beamforming (NVIDIA Jetson)</strong> enables <strong>~20 volumes per second</strong> real‑time imaging with guided acquisition and automated interpretation.</p>
+        <div class="product-chips">
+          <span class="chip">TRL 6 (overall)</span>
+          <span class="chip">3D/4D volumetric</span>
+          <span class="chip">AI‑guided eFAST</span>
+          <span class="chip">NCTH detection</span>
+          <span class="chip">Planar matrix array</span>
+          <span class="chip">Jetson GPU</span>
+          <span class="chip">~20 vol/s</span>
+          <span class="chip">Telemedicine GUI</span>
+        </div>
       </div>
+
+      <!-- TRL snapshot & Tech stack -->
+      <div class="cols-2" style="margin-top:16px">
+        <div class="card">
+          <strong>Technology stack</strong>
+          <ul style="margin:10px 0 0 18px">
+            <li><strong>Planar matrix‑array transducer</strong> capturing a full 3D volume per acquisition.</li>
+            <li><strong>GPU‑accelerated beamforming</strong> on embedded <strong>NVIDIA Jetson</strong> for low‑latency volumetric imaging (~20 vol/s).</li>
+            <li><strong>On‑device AI</strong> with guided prompts and automated interpretation for reliable eFAST workflows.</li>
+            <li><strong>TeleConsult GUI</strong> with secure telemedicine communication to support remote consultation and training.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <strong>TRL snapshot by sub‑system</strong>
+          <ul style="margin:10px 0 0 18px">
+            <li>Matrix planar array probe — <strong>TRL 8</strong> (two prototypes, tested at Fraunhofer IBMT).</li>
+            <li>Parallel computing architecture (8 FPGAs, 256 ADC / 256 DAC) — <strong>TRL 8</strong>.</li>
+            <li>3D beamformer with volumetric reconstruction — <strong>TRL 7</strong>.</li>
+            <li>GUI with telemedicine (TeleConsult) — <strong>TRL 9</strong> (integrated and validated in relevant environments).</li>
+            <li>Automated diagnostic tool (Morison’s pouch bleeding) — <strong>TRL 6</strong> (phantom‑tested; clinical trials pending).</li>
+            <li>System integration (two real‑time 3D prototypes) — <strong>TRL 6</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Image gallery (replace prior single image) -->
+      <div class="card" style="margin-top:16px">
+        <strong>Prototype & GUI imagery</strong>
+        <div class="gallery" style="margin-top:10px">
+          <figure class="card" style="padding:8px">
+            <img src="CAN_1.png" alt="TeleConsult GUI – interface and controls">
+            <figcaption><strong>Fig. 1:</strong> Development of a GUI with telemedicine communication capabilities.</figcaption>
+          </figure>
+          <figure class="card" style="padding:8px">
+            <img src="CAN_2.png" alt="Probe placement guide during eFAST">
+            <figcaption><strong>Fig. 2:</strong> Development of an automated diagnostic tool for detecting abdominal bleeding in Morison’s pouch.</figcaption>
+          </figure>
+          <figure class="card" style="padding:8px">
+            <img src="CAN_3.png" alt="Morrison’s pouch with simulated free fluid">
+            <figcaption><strong>Fig. 3:</strong> System Integration and delivery of 2-prototype real-time 3D ultrasound imaging systems. </figcaption>
+          </figure>
+          <figure class="card tall" style="padding:8px">
+            <img src="CAN_4.png" alt="Portable 3D/4D ultrasound prototype hardware">
+            <figcaption><strong>Fig. 4:</strong> The TeleConsult GUI. Left: Screenshot of the interface with ultrasound data and the operating panel. Center, the user guide for the correct placement of the probe. Right, Morrison-pouch, with free fluid. </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Portable Ultrasound References -->
+      <article id="ultra-references" class="card" style="margin-top:16px">
+        <h3 style="margin:0 0 8px">Selected References (Portable Ultrasound)</h3>
+        <ol style="margin-top:10px;padding-left:20px">
+          <li>K. L. Amezcua, et al., "Design and Testing of Ultrasound Probe Adapters for a Robotic Imaging Platform," <em>Scientific Reports</em>, 14(1):5102, 2024. doi:10.1038/s41598-024-55480-0.</li>
+          <li>Yuan Bi, et al., "Machine Learning on Robotic Ultrasound Imaging: Challenges and Perspectives," arXiv:2401.02376, 2024.</li>
+          <li>Torres Hernandez, et al., "Evaluation of Deep Learning Model Architectures for Point-of-Care Ultrasound Diagnostics," <em>Bioengineering</em>, 11(4):392, 2024.</li>
+          <li>D. C. Hile, et al., "Is Point‑of‑Care Ultrasound Accurate and Useful in the Hands of Military Medical Technicians?" <em>Military Medicine</em>, 177(8):983–987, 2012.</li>
+          <li>J. D. Monti and M. D. Perreault, "Impact of a 4‑hour Introductory eFAST Training Intervention Among Ultrasound‑Naïve U.S. Military Medics," <em>Military Medicine</em>, 185(5‑6):e601‑e608, 2020.</li>
+          <li>S. Stergiopoulos, K. Plataniotis, and M. Marsousi, "Optimal Probe Placement for FAST by Organ Segmentation in 3D Ultrasound Images," patent filed, DRDC File: 1416‑14/007CA, 2019.</li>
+          <li>P. Weber, K. Plataniotis, S. Stergiopoulos, G. Sakas, et al., "Portable, 3D/4D Ultrasound Diagnostic Imaging System (PUDIS)," NATO HFM‑249 Symposium, Warsaw, April 2015.</li>
+          <li>M. Marsousi, K. Plataniotis, and S. Stergiopoulos, "An Automated Approach for Kidney Segmentation in Three‑Dimensional Ultrasound Images," <em>IEEE JBHI</em>, 2016.</li>
+          <li>M. Marsousi, K. Plataniotis, and S. Stergiopoulos, "Computer‑Assisted 3D Ultrasound Probe Placement for Emergency Healthcare Applications," <em>IEEE TII</em>, 2016.</li>
+          <li>S. Stergiopoulos and A. Dhanantwari, "High Resolution 3D Ultrasound Imaging System Deploying a Multi‑Dimensional Array of Sensors," technical report/patent notes.</li>
+          <li>S. Stergiopoulos and A. Dhanantwari, US Patent 6,719,696, 2004.</li>
+          <li>S. Stergiopoulos and A. Dhanantwari, US Patent 6,482,160, 2002.</li>
+          <li>S. Stergiopoulos, "3D Ultrasound System and Method," US Patent Application 61/777,321, 2018 (DND ref. 1416‑18003).</li>
+          <li>S. Stergiopoulos, M. Marsousi, and K. Plataniotis, "Automated Diagnostics in 3D Ultrasound System and Method," US Patent Application 61/777,343, 2018 (DND ref. 1416‑18004).</li>
+        </ol>
+      </article>
     </section>
 
     <!-- TEAM MINI (with LinkedIn circles under each image) -->
@@ -497,7 +532,7 @@
               </a>
             </div>
           </div>
-          <h4>Georgios Sakkas</h4>
+          <h4>Georgios Sakkas, Ph.D.</h4>
           <p>Chief Software Imaging</p>
           <a class="profile-link" href="team.html#sakkas">View profile →</a>
         </div>
