@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#193773">
+<title>NOEMAC • ASW Poseidon | Ultrasound</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --blue:#193773; --blue-dark:#102a60; --ink:#193773; --bg:#ffffff;
+    --accent:#a9c2ff; --line:rgba(25,55,115,.14);
+    --chip-bg:rgba(25,55,115,.08); --chip-border:rgba(25,55,115,.25);
+    --card-border:rgba(25,55,115,.15); --card-shadow:0 8px 20px rgba(25,55,115,.06);
+    --wm-size: clamp(520px, 70vw, 920px); --wm-top: clamp(58vh, calc(50% + 150px), 70vh); --wm-opacity:.10;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;background:var(--bg);color:var(--ink);font-size:18px;position:relative}
+
+  /* watermark */
+  .wm{position:fixed;top:var(--wm-top);left:50%;transform:translate(-50%,-50%);
+      width:var(--wm-size);height:var(--wm-size);background:url('noemac_blue.png') center/contain no-repeat;
+      opacity:var(--wm-opacity);pointer-events:none;z-index:0}
+  header, main, footer{position:relative;z-index:1}
+
+  /* header */
+  header{
+    position:sticky;top:0;z-index:10;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0) 18%),
+      linear-gradient(180deg, var(--blue-dark) 0%, var(--blue) 70%);
+    border-bottom:1px solid rgba(255,255,255,.18);box-shadow:0 4px 14px rgba(0,0,0,.12)
+  }
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent)}
+  .bar{display:flex;align-items:center;gap:12px;padding:14px 0;transition:padding .18s ease}
+  header.shrink .bar{padding:8px 0}
+
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand img{width:84px;height:84px;object-fit:contain;transition:width .18s ease,height .18s ease}
+  header.shrink .brand img{width:64px;height:64px}
+  .brand strong{color:#fff;font-weight:800;font-size:22px;letter-spacing:.02em}
+
+  .site-nav{display:flex;gap:26px;margin-left:auto}
+  .site-nav a{
+    color:#fff;text-decoration:none;font-weight:600;letter-spacing:.01em;opacity:.95;position:relative;padding:8px 2px;outline:none;
+    background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-size:0% 2px;background-position:0 100%;
+    transition:background-size .18s ease, opacity .18s ease
+  }
+  .site-nav a:hover,.site-nav a:focus{opacity:1;background-size:100% 2px}
+  .site-nav a.active{opacity:1;background-size:100% 2px}
+  .nav-toggle{display:none}
+
+  .container{width:min(1120px,92vw);margin-inline:auto}
+  .hero{padding:72px 0 34px;text-align:center}
+  .headline{font-size:clamp(36px,6vw,60px);line-height:1.05;margin:0}
+  .sub{font-size:20px;line-height:1.7;max-width:90ch;margin:12px auto 0;opacity:.95}
+  .kicker{margin:14px auto 6px;opacity:.9;font-weight:700;letter-spacing:.06em}
+
+  section{padding:44px 0;border-top:1px solid var(--line);scroll-margin-top:96px}
+  h2{margin:0 0 12px} p{margin:0 0 12px}
+
+  .card{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:18px;box-shadow:var(--card-shadow)}
+  .chip{display:inline-block;background:var(--chip-bg);border:1px solid var(--chip-border);color:var(--ink);
+        border-radius:999px;padding:6px 10px;font-size:13px;margin:8px 6px 0}
+
+  /* carousel */
+  .carousel{position:relative;max-width:980px;margin:18px auto 0;overflow:hidden}
+  .carousel-track{display:flex;transition:transform .35s ease;will-change:transform}
+  .slide{flex:0 0 100%;padding:0}.carousel .card{height:100%}
+  .carousel-dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+  .dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--blue);background:transparent;opacity:.6;cursor:pointer}
+  .dot[aria-selected="true"]{background:var(--blue);opacity:1}
+  .carousel-prev,.carousel-next{
+    position:absolute;top:50%;transform:translateY(-50%);border:1px solid var(--card-border);background:#fff;border-radius:999px;
+    width:34px;height:34px;line-height:30px;text-align:center;font-size:20px;color:var(--blue);opacity:.85;cursor:pointer}
+  .carousel-prev{left:8px}.carousel-next{right:8px}
+  .carousel-prev:hover,.carousel-next:hover{opacity:1}
+  @media (max-width:680px){ .carousel-prev,.carousel-next{display:none} }
+
+  /* About/ASW layouts */
+  .spotlight{background:rgba(25,55,115,.03);border:1.5px solid var(--blue);border-radius:16px;padding:22px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+  .badge{background:var(--chip-bg);border:1px solid var(--chip-border);border-radius:999px;padding:6px 10px;font-size:13px}
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+  .metric{background:rgba(25,55,115,.06);border:1px solid var(--card-border);border-radius:10px;padding:6px 10px;font-size:13px}
+  .cols-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:860px){ .about-grid,.cols-2{grid-template-columns:1fr} }
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;grid-auto-flow:dense}
+  .gallery figure{margin:0;display:flex;flex-direction:column}
+  .gallery img{width:100%;height:280px;object-fit:contain;background:#fff;border:1px solid var(--card-border);border-radius:8px}
+  .gallery .tall img{height:420px}
+  figcaption{font-size:13.5px;line-height:1.35;opacity:.9;margin-top:6px;color:var(--ink)}
+  @media (max-width:680px){ .gallery{grid-template-columns:1fr}.gallery img{height:220px}.gallery .tall img{height:260px} }
+
+  /* product (Portable Ultrasound) */
+  .product-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:stretch}
+  .product-figure img{width:100%;height:360px;object-fit:contain;background:#fff;border:1px solid var(--card-border);border-radius:10px}
+  .product-chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+  @media (max-width:860px){ .product-hero{grid-template-columns:1fr} .product-figure img{height:280px} }
+
+  /* compact team grid (with LinkedIn circles) */
+  .team-mini .team-grid{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+  .team-card{background:#fff;border:1px solid var(--card-border);border-radius:14px;box-shadow:var(--card-shadow);padding:14px;text-align:center;color:var(--ink)}
+  .team-card .photo{display:flex;flex-direction:column;align-items:center}
+  .team-card img{width:120px;height:120px;object-fit:cover;border-radius:12px;border:2px solid var(--card-border);display:block;margin:6px auto 8px}
+  .social{display:flex;gap:8px;justify-content:center;margin:6px 0 8px}
+  .social a{width:36px;height:36px;border-radius:50%;border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+  .social a:hover{transform:translateY(-1px)}
+  .icon{width:18px;height:18px;display:inline-block}
+  .team-card h4{margin:6px 0 4px;font-size:16px}
+  .team-card p{margin:0 0 6px;font-size:14px;opacity:.9}
+  .team-card .profile-link{display:inline-block;margin-top:2px;font-weight:600;text-decoration:none;color:var(--ink)}
+  .team-card .profile-link:hover{opacity:.9}
+  .team-mini .team-grid .team-card:last-child{grid-column:2}
+  @media (max-width:900px){
+    .team-mini .team-grid{grid-template-columns:repeat(2,1fr)}
+    .team-mini .team-grid .team-card:last-child{grid-column:auto}
+  }
+  @media (max-width:620px){ .team-mini .team-grid{grid-template-columns:1fr} }
+
+  /* desktop vs mobile */
+  .desktop-only{display:block}.mobile-only{display:none}
+  @media (max-width:680px){
+    .brand img{width:64px;height:64px}
+    .site-nav{display:none;position:absolute;right:12px;top:100%;background:linear-gradient(180deg,var(--blue-dark),var(--blue));
+      border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:8px 12px;flex-direction:column;min-width:180px}
+    .site-nav a{display:block;color:#fff;margin:0}.site-nav.open{display:flex}
+    .nav-toggle{display:block;margin-left:auto;background:transparent;border:0;color:#fff;font-size:28px;line-height:1;padding:6px 10px;cursor:pointer}
+    .wm{opacity:.06;top:65vh;width:80vw;height:80vw}
+    .desktop-only{display:none}.mobile-only{display:block}
+  }
+
+  footer{padding:26px 0;border-top:1px solid var(--line);opacity:.9;font-size:14px;color:var(--ink)}
+
+  @media (prefers-reduced-motion:reduce){
+    .bar,.brand img,.site-nav a,.carousel-track{transition:none!important}
+  }
+
+  /* --- NEW: Soft, subtle styling for Developed Technologies cards --- */
+  .carousel .card.devtech-soft{
+    background:
+      linear-gradient(180deg, rgba(25,55,115,.03), rgba(25,55,115,.015)),
+      #fff;
+    border:1px solid rgba(25,55,115,.18);
+    box-shadow:0 8px 18px rgba(25,55,115,.08);
+    color:var(--ink);
+  }
+  .carousel .card.devtech-soft strong{color:var(--blue)}
+  .carousel .card.devtech-soft p{opacity:.95}
+  .carousel .card.devtech-soft .chip{
+    background:rgba(25,55,115,.07);
+    border:1px solid rgba(25,55,115,.22);
+  }
+</style>
+</head>
+<body>
+  <div class="wm" aria-hidden="true"></div>
+
+  <header>
+    <div class="container bar">
+      <a class="brand" href="#top"><img src="noemac_white.png" alt="NOEMAC logo" /></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#asw">ASW Poseidon</a>
+        <a href="#ultrasound">Portable Ultrasound</a>
+        <a href="#publications">Publications</a>
+        <a href="team.html">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- HERO -->
+    <section class="hero" aria-label="Intro">
+      <h1 class="headline">NOEMAC</h1>
+
+      <div class="desktop-only">
+        <p class="sub">We operate at the intersection of medical imaging and maritime defense.</p>
+        <p class="sub">ASW Poseidon advances passive long-array sonar and command-and-control to improve underwater situational awareness for Anti-Submarine Warfare.</p>
+        <p class="sub">In parallel, our portable-ultrasound technology addresses a capability gap identified by the U.S. Army testing: the lack of field-ready devices for battlefield and emergency medicine.</p>
+      </div>
+
+      <div class="mobile-only">
+        <p class="sub">Medical imaging and maritime defense.</p>
+        <p class="sub">Portable ultrasound fills a U.S. Army–identified field gap.</p>
+        <p class="sub">ASW Poseidon improves underwater awareness via passive long-arrays and C2.</p>
+      </div>
+
+      <div class="kicker">Developed Technologies</div>
+
+      <!-- Carousel (ASW first, then Ultrasound) -->
+      <div class="carousel" id="dev-tech" aria-label="Developed Technologies">
+        <button class="carousel-prev" aria-label="Previous slide" title="Previous">‹</button>
+        <div class="carousel-track" role="group" aria-roledescription="carousel">
+          <div class="slide" id="slide-1" aria-label="ASW Poseidon">
+            <div class="card devtech-soft">
+              <strong>ASW Poseidon</strong>
+              <p style="margin-top:6px">State-of-the-art passive surveillance sonar using sea-bottom fixed long arrays or 200-m towed arrays at ~100 m depth.</p>
+              <span class="chip">Passive arrays</span><span class="chip">Adaptive beamforming</span><span class="chip">PLA / C2</span>
+            </div>
+          </div>
+          <div class="slide" id="slide-2" aria-label="Portable Ultrasound">
+            <div class="card devtech-soft">
+              <strong>Portable Ultrasound</strong>
+              <p style="margin-top:6px">Handheld, clinician-friendly imaging with secure connectivity for field care and emergency medicine.</p>
+              <span class="chip">eFAST</span><span class="chip">AI CAD</span><span class="chip">4D</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
+          <button class="dot" role="tab" aria-controls="slide-1" aria-selected="true" title="ASW Poseidon"></button>
+          <button class="dot" role="tab" aria-controls="slide-2" aria-selected="false" title="Portable Ultrasound"></button>
+        </div>
+        <button class="carousel-next" aria-label="Next slide" title="Next">›</button>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About NOEMAC</h2>
+      <div class="spotlight">
+        <div class="badges">
+          <span class="badge">Established July 2025</span>
+          <span class="badge">Subsidiary of ADICUS4D Ltd (Canada)</span>
+        </div>
+        <p><strong>NOEMAC Ltd</strong> was established in July 2025 as a subsidiary of the Canadian corporation ADICUS4D Ltd. Our mission is to complete the development and commercialization of advanced geometrically multidimensional <strong>3D beamformers</strong> and integrate them with <strong>AI decision-support systems</strong>.</p>
+        <p>The technologies were conceived and developed by <strong>Prof. Stergios Stergiopoulos</strong> (Senior & Chief Defence Scientist, DRDC Toronto, retired) and <strong>Prof. Konstantinos N. Plataniotis</strong> (University of Toronto).</p>
+
+        <div class="about-grid">
+          <div class="card">
+            <strong>Focus areas</strong>
+            <ul style="margin:10px 0 0 18px">
+              <li><strong>Anti-Submarine Warfare (ASW)</strong> surveillance systems based on multidimensional beamforming.</li>
+              <li><strong>Field-deployable 4D ultrasound</strong> with automated diagnostic capabilities for combat casualty and trauma care, and civilian emergency medicine.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <strong>Why it matters</strong>
+            <p style="margin-top:8px"><strong>Multidimensional beamformers</strong> fused with <strong>AI decision support</strong> deliver higher sensitivity, better localization, and faster operator decisions across maritime sensing and point-of-care medicine.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASW -->
+    <section id="asw">
+      <h2>ASW Poseidon</h2>
+      <div class="card">
+        <p>NOEMAC’s antisubmarine warfare system is a <strong>state-of-the-art passive surveillance sonar</strong> that deploys either a <strong>sea-bottom fixed long hydrophone array</strong> or a <strong>200-m towed array</strong> at approximately 100 m depth. For quiet submarines, sea-bottom fixed arrays provide detection ranges of around <strong>30 nautical miles (~55 km)</strong>.</p>
+        <div class="metrics">
+          <span class="metric">Sea-bottom fixed long array</span>
+          <span class="metric">200 m towed array @ ~100 m</span>
+          <span class="metric">Quiet-sub detection ~30 nm</span>
+          <span class="metric">PLA / C2 (AWACS-like concept)</span>
+        </div>
+      </div>
+
+      <div class="cols-2" style="margin-top:16px">
+        <div class="card">
+          <strong>Signal-processing chain</strong>
+          <ul style="margin:10px 0 0 18px">
+            <li><strong>Advanced beamformers</strong> (adaptive and synthetic-aperture) for narrowband and broadband targets.</li>
+            <li><strong>Spectral analysis</strong> for classification and track persistence.</li>
+            <li><strong>Passive Localization Assistant (PLA)</strong> and <strong>C2</strong> concepts that address UUVs, modern communications, and swarm behaviors, providing an underwater picture similar in role to AWACS in the air domain.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <strong>Advantages vs competing products</strong>
+          <ul style="margin:10px 0 0 18px">
+            <li><strong>Adaptive beamformers</strong> reduce strong surface-ship noise and improve detection of quiet broadband targets.</li>
+            <li><strong>Acoustic synthetic-aperture beamformers</strong> increase array gain for narrowband signals by <strong>~3.5 dB</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <strong>Consulting & Support</strong>
+        <ul style="margin:10px 0 0 18px">
+          <li><strong>Numerical assessment</strong> and trade studies for the sonar-equation problem.</li>
+          <li><strong>Deployment procedures</strong> for sea-bottom or towed line-array configurations.</li>
+          <li><strong>Training</strong> of sonar operators.</li>
+          <li><strong>Maintenance support</strong> across hardware and software subsystems.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin:0 0 8px">Operational evidence</h3>
+        <p style="margin:0 0 12px;opacity:.9">Representative outputs from trials and evaluations.</p>
+
+        <div class="gallery">
+          <figure class="card" style="padding:8px">
+            <img src="ASW_1.png" alt="System processing pipeline to world picture">
+            <figcaption><strong>Fig. 1:</strong> Integrated passive sonar processing chain from NB and BB beamforming to PLA and AI classification.</figcaption>
+          </figure>
+          <figure class="card" style="padding:8px">
+            <img src="ASW_2.png" alt="LOFAR narrowband beams">
+            <figcaption><strong>Fig. 2:</strong> Detection of a very quiet narrow-band target at approximately 20 nm range.</figcaption>
+          </figure>
+          <figure class="card" style="padding:8px">
+            <img src="ASW_3.png" alt="Bearing tracking vs ground truth">
+            <figcaption><strong>Fig. 3:</strong> Bearing estimates compared with true source bearing.</figcaption>
+          </figure>
+          <figure class="card" style="padding:8px">
+            <img src="ASW_4.png" alt="Passive Localization Assistant display">
+            <figcaption><strong>Fig. 4:</strong> PLA integrating tracking, spectral analysis, and AI tools.</figcaption>
+          </figure>
+          <figure class="card tall" style="padding:8px">
+            <img src="ASW_5.png" alt="Conventional vs sub-aperture MVDR">
+            <figcaption><strong>Fig. 5:</strong> Broad-band beamforming output for a fast-moving vessel.</figcaption>
+          </figure>
+          <figure class="card" style="padding:8px">
+            <img src="ASW_6.png" alt="Sea-bottom fixed array concept of operations">
+            <figcaption><strong>Fig. 6:</strong> Fixed hydrophone array on the sea bottom with peripherals.</figcaption>
+          </figure>
+        </div>
+
+        <p style="margin-top:12px;font-size:13px;opacity:.8">The methodologies and findings have been validated and disseminated through peer-reviewed scientific publications. See selected publications below.</p>
+      </div>
+    </section>
+
+    <!-- PORTABLE ULTRASOUND -->
+    <section id="ultrasound">
+      <h2>Portable Ultrasound</h2>
+
+      <!-- Hero row: rewritten description + image -->
+      <div class="product-hero">
+        <div class="card">
+          <p>Our portable <strong>3D volumetric ultrasound</strong> functions like a <strong>“mobile CT scanner for the battlefield”</strong>, delivering instant volumetric imaging that captures all views at once. Powered by integrated AI, the system enables combat medics with minimal ultrasound training to perform diagnostically accurate <strong>eFAST</strong> examinations for the detection of <strong>non-compressible torso hemorrhage (NCTH)</strong>, the leading preventable cause of battlefield deaths.</p>
+
+          <p>The solution combines a <strong>planar matrix-array transducer</strong> with <strong>GPU-accelerated beamforming</strong> on the <strong>NVIDIA Jetson</strong> embedded architecture to achieve <strong>real-time volumetric imaging at ~20 volumes per second</strong>. Proprietary AI provides guided on-screen prompts and automated image interpretation, turning complex ultrasound procedures into intuitive point-and-click actions.</p>
+
+          <div class="product-chips">
+            <span class="chip">Planar matrix array</span>
+            <span class="chip">GPU-accelerated</span>
+            <span class="chip">~20 vol/s</span>
+            <span class="chip">AI-guided eFAST</span>
+            <span class="chip">NCTH detection</span>
+            <span class="chip">TRL 6 → market</span>
+          </div>
+        </div>
+
+        <figure class="card product-figure" style="padding:12px">
+          <img src="CAN_5.png" alt="3D–4D Portable Ultrasound prototype">
+          <figcaption style="margin-top:6px">3D–4D portable ultrasound prototype.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Two cards like ASW -->
+      <div class="cols-2" style="margin-top:16px">
+        <div class="card">
+          <strong>Technology stack</strong>
+          <ul style="margin:10px 0 0 18px">
+            <li><strong>Planar matrix-array transducer</strong> captures a full 3D volume in a single acquisition.</li>
+            <li><strong>GPU-accelerated beamforming</strong> on embedded <strong>NVIDIA Jetson</strong> delivers low-latency volumetric imaging.</li>
+            <li><strong>Real-time 3D at ~20 volumes per second</strong> supports motion-resilient scans in dynamic field conditions.</li>
+            <li><strong>On-device AI</strong> provides acquisition guidance and automated interpretation for reliable, repeatable exams.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <strong>Prototype capabilities</strong>
+          <ul style="margin:10px 0 0 18px">
+            <li>Real-time automated detection of trauma-related conditions through advanced AI algorithms.</li>
+            <li>Computer-aided diagnostic tools that guide non-expert users through critical assessments.</li>
+            <li>Immediate, accurate results that enable life-saving interventions within the critical <em>golden hour</em>.</li>
+            <li>Rugged, battlefield-ready design that maintains laboratory-grade accuracy in extreme conditions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Competitive Advantage -->
+      <div class="card" style="margin-top:16px">
+        <strong>Competitive advantage</strong>
+        <ul style="margin:10px 0 0 18px">
+          <li><strong>Rapid deployment</strong> by personnel with minimal specialized training through AI-powered automation.</li>
+          <li><strong>Point-of-injury diagnostics</strong> bring sophisticated analysis directly to the casualty.</li>
+          <li><strong>Path to market</strong> advances from TRL 6 experimental prototype to a commercial system upon regulatory compliance and conformance to applicable standards.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DELIVERY & CONSULTATIONS -->
+    <section id="delivery">
+      <h2>System Delivery & Consultations</h2>
+      <div class="card">
+        <p><strong>Delivery timeline:</strong> within <strong>16 months</strong> for a complete sea-bottom mounted system including hydrophone line array, supporting electronics, signal processing, and command-and-control.</p>
+        <p><em>Note:</em> Deployment of the sea-bottom array is not included. NOEMAC provides consultations for optimal underwater site selection with respect to sonar performance.</p>
+
+        <strong>Consultations & Support include:</strong>
+        <ul style="margin:10px 0 0 18px">
+          <li>Numerical assessment of best options for solving the sonar-equation problem to achieve optimum performance.</li>
+          <li>Deployment procedures for sea-bottom or towed configurations for hydrophone line arrays suited to sonar operations.</li>
+          <li>Training of sonar operators.</li>
+          <li>Maintenance support for hardware and software sub-systems.</li>
+        </ul>
+
+        <p style="margin-top:10px">NOEMAC’s ASW Poseidon system has been tested in operational environments, with assessment results published in <em>The Proceedings of the IEEE</em>.</p>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2>Selected Publications</h2>
+      <div class="card">
+        <ol style="margin-top:10px;padding-left:20px">
+          <li>Stergiopoulos, S. (1998). Implementation of Adaptive and Synthetic Aperture Beamformers in Sonar Systems. <em>Proceedings of the IEEE</em>, 86(2), 358–396.</li>
+          <li>Stergiopoulos, S. (Ed.). (2009). <em>Advanced Beamformers</em>, in <em>Handbook on Advanced Signal Processing for Sonar, Radar and Medical Imaging Systems</em> (2nd ed.). CRC Press.</li>
+          <li>Stergiopoulos, S. (1990). Optimum bearing resolution for a moving towed array and extension of its physical aperture. <em>J. Acoust. Soc. Am.</em>, 87(5), 2128–2140.</li>
+          <li>Stergiopoulos, S., & Sullivan, E. J. (1989). Extended towed array processing by overlapped correlator. <em>J. Acoust. Soc. Am.</em>, 86(1), 158–171.</li>
+          <li>Stergiopoulos, S., & Ashley, A. T. (1997). Split-beam processing as a broadband bearing estimator. <em>J. Acoust. Soc. Am.</em>, 102(6), 3556–3563.</li>
+          <li>Stergiopoulos, S. (1995). Noise normalization technique for beamformed towed array data. <em>J. Acoust. Soc. Am.</em>, 97(4), 2334–2345.</li>
+          <li>Stergiopoulos, S., & Urban, H. (1992). Forming a long synthetic aperture in the sea. <em>IEEE J. Oceanic Eng.</em>, 17(1), 62–72.</li>
+          <li>Stergiopoulos, S. (1991). Limitations on towed array gain in a non-isotropic ocean. <em>J. Acoust. Soc. Am.</em>, 90(6), 3161–3172.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TEAM MINI (with LinkedIn circles under each image) -->
+    <section class="team-mini">
+      <h2>Our Team</h2>
+      <div class="team-grid">
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="stergios.jpg" alt="Prof. Stergios Stergiopoulos">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/stergiopoulos-stergios-4897598/" target="_blank" rel="noopener" aria-label="Stergios Stergiopoulos on LinkedIn" title="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Prof. Stergios Stergiopoulos, Ph.D.</h4>
+          <p>Chief Innovation – Technology Officer, Director</p>
+          <a class="profile-link" href="team.html#stergios">View profile →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="kostas.jpg" alt="Prof. Konstantinos N. Plataniotis">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/kostas-plataniotis-b360811/" target="_blank" rel="noopener" aria-label="Konstantinos N. Plataniotis on LinkedIn" title="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Prof. Konstantinos (Kostas) N. Plataniotis, Ph.D., P.Eng., FEIC, FCAE, FIEEE</h4>
+          <p>Chief Executive Officer</p>
+          <a class="profile-link" href="team.html#kostas">View profile →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="stamatis.jpg" alt="Stamatis Tzelepis">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/stamatis-tzelepis/" target="_blank" rel="noopener" aria-label="Stamatis Tzelepis on LinkedIn" title="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Stamatis Tzelepis, Ph.D.</h4>
+          <p>Chief Software Engineer</p>
+          <a class="profile-link" href="team.html#stamatis">View profile →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="karagiannis_g.jpg" alt="Georgios Karagiannis">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/karagiannis-georgios-6a290042/" target="_blank" rel="noopener" aria-label="Georgios Karagiannis on LinkedIn" title="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Georgios Karagiannis, Ph.D.</h4>
+          <p>Chief Hardware Architect</p>
+          <a class="profile-link" href="team.html#karagiannis">View profile →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="sakkas_g.jpg" alt="Georgios Sakkas">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/georgios-sakas-12a6a17/" target="_blank" rel="noopener" aria-label="LinkedIn (add URL)" title="LinkedIn (add URL)">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Georgios Sakkas</h4>
+          <p>Chief Software Imaging</p>
+          <a class="profile-link" href="team.html#sakkas">View profile →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="christos.jpg" alt="Christos Korgialas">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/christos-korgialas-4b169a187/" target="_blank" rel="noopener" aria-label="Christos Korgialas on LinkedIn" title="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Christos Korgialas, Ph.D.(c)</h4>
+          <p>Senior Software Engineer</p>
+          <a class="profile-link" href="team.html#christos">View profile →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="photo">
+            <img src="ilda.jpg" alt="Dr. Ilda Hobdari">
+            <div class="social">
+              <a href="https://www.linkedin.com/in/ilda-hobdari-81b73453/" target="_blank" rel="noopener" aria-label="Ilda Hobdari on LinkedIn" title="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h4>Dr. Ilda Hobdari, M.D., CCFP</h4>
+          <p>Medical Practice Adviser</p>
+          <a class="profile-link" href="team.html#ilda">View profile →</a>
+        </div>
+
+      </div>
+      <p style="margin-top:14px"><a class="profile-link" href="team.html">Meet the full team →</a></p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p style="margin:0 0 6px">Email: <a href="mailto:info@noemac.com">info@noemac.com</a></p>
+        <p style="margin:0 0 6px">Phone: <a href="tel:+306971985455">+30 697 198 5455</a></p>
+        <p style="margin:0">Address: Eleftherou Anthropou 21, Glyfada, Athens 16562</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">© <span id="y"></span> NOEMAC. All rights reserved.</div></footer>
+
+<script>
+  // year + active nav + shrink (only for in-page anchors)
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const headerEl = document.querySelector('header');
+  const links = document.querySelectorAll('.site-nav a[href^="#"]');
+  const sections = [...document.querySelectorAll('main section')].map(s=>({id:s.id,el:s})).filter(s=>s.id);
+  const setActive = () => {
+    const y = window.scrollY + 120; let active = sections[0]?.id;
+    for (const s of sections){ if (s.el.offsetTop <= y) active = s.id; }
+    links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#' + active));
+  };
+  window.addEventListener('scroll',()=>{ headerEl.classList.toggle('shrink',window.scrollY>10); setActive(); });
+  setActive();
+
+  // mobile menu
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.site-nav');
+  btn?.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // carousel (ASW first)
+  (function(){
+    const root = document.getElementById('dev-tech');
+    if(!root) return;
+    const track = root.querySelector('.carousel-track');
+    const slides = [...root.querySelectorAll('.slide')];
+    const dots = [...root.querySelectorAll('.dot')];
+    const prev = root.querySelector('.carousel-prev');
+    const next = root.querySelector('.carousel-next');
+    let i = 0, startX = 0, down = false;
+
+    const go = (n) => {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      track.style.transform = `translateX(${-i * 100}%)`;
+      dots.forEach((d,k)=>d.setAttribute('aria-selected', k===i ? 'true' : 'false'));
+    };
+    dots.forEach((d,k)=> d.addEventListener('click', ()=>go(k)));
+    prev?.addEventListener('click', ()=>go(i-1));
+    next?.addEventListener('click', ()=>go(i+1));
+
+    const onDown = (e) => { down = true; startX = (e.touches?e.touches[0].clientX:e.clientX); };
+    const onMove = (e) => {
+      if(!down) return;
+      const x = (e.touches?e.touches[0].clientX:e.clientX);
+      const dx = x - startX;
+      track.style.transition = 'none';
+      track.style.transform = `translateX(${-i*100 + (dx/window.innerWidth)*100}%)`;
+    };
+    const onUp = (e) => {
+      if(!down) return;
+      down = false; track.style.transition = '';
+      const endX = (e.changedTouches?e.changedTouches[0].clientX:e.clientX);
+      const dx = endX - startX;
+      if (Math.abs(dx) > window.innerWidth * 0.12) go(i + (dx<0?1:-1)); else go(i);
+    };
+    track.addEventListener('mousedown', onDown);
+    track.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    track.addEventListener('touchstart', onDown, {passive:true});
+    track.addEventListener('touchmove', onMove, {passive:true});
+    track.addEventListener('touchend', onUp);
+    root.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') go(i+1); if(e.key==='ArrowLeft') go(i-1); });
+
+    go(0);
+  })();
+</script>
+</body>
+</html>

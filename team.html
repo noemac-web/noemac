@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#193773">
+<title>NOEMAC • Team</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --blue:#193773; --blue-dark:#102a60; --ink:#193773; --bg:#ffffff;
+    --accent:#a9c2ff; --line:rgba(25,55,115,.14);
+    --card-border:rgba(25,55,115,.15); --card-shadow:0 8px 20px rgba(25,55,115,.06);
+    --wm-size: clamp(520px, 70vw, 920px); --wm-top: clamp(58vh, calc(50% + 150px), 70vh); --wm-opacity:.10;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;background:#fff;color:var(--ink);font-size:18px;position:relative}
+
+  /* watermark */
+  .wm{position:fixed;top:var(--wm-top);left:50%;transform:translate(-50%,-50%);
+      width:var(--wm-size);height:var(--wm-size);background:url('noemac_blue.png') center/contain no-repeat;
+      opacity:var(--wm-opacity);pointer-events:none;z-index:0}
+  header, main, footer{position:relative;z-index:1}
+
+  header{
+    position:sticky;top:0;z-index:10;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0) 18%),
+      linear-gradient(180deg, var(--blue-dark) 0%, var(--blue) 70%);
+    border-bottom:1px solid rgba(255,255,255,.18);box-shadow:0 4px 14px rgba(0,0,0,.12)
+  }
+  .bar{display:flex;align-items:center;gap:12px;padding:14px 0;transition:padding .18s ease}
+  header.shrink .bar{padding:8px 0}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand img{width:84px;height:84px;object-fit:contain;transition:width .18s ease,height .18s ease}
+  header.shrink .brand img{width:64px;height:64px}
+  .brand strong{color:#fff;font-weight:800;font-size:22px}
+  .site-nav{display:flex;gap:26px;margin-left:auto}
+  .site-nav a{color:#fff;text-decoration:none;font-weight:600;opacity:.95;position:relative;padding:8px 2px;
+    background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-size:0% 2px;background-position:0 100%}
+  .site-nav a:hover,.site-nav a.active{opacity:1;background-size:100% 2px}
+  .nav-toggle{display:none}
+
+  .container{width:min(1120px,92vw);margin-inline:auto}
+  main{padding:28px 0}
+  h1{margin:0 0 18px}
+  section{padding:24px 0;border-top:1px solid var(--line);scroll-margin-top:96px}
+
+  .card{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:18px;box-shadow:var(--card-shadow)}
+  .person{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start;margin-bottom:16px}
+  .person img{width:220px;height:220px;object-fit:cover;border-radius:14px;border:2px solid var(--card-border)}
+  .role{margin:2px 0 10px;font-weight:600;opacity:.95}
+
+  /* photo + circular social button under the image */
+  .photo{display:flex;flex-direction:column;align-items:center}
+  .social{display:flex;gap:8px;justify-content:center;margin-top:8px}
+  .social a{width:36px;height:36px;border-radius:50%;border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+  .social a:hover{transform:translateY(-1px)}
+  .icon{width:18px;height:18px;display:inline-block}
+
+  .cv-block{margin:8px 0}
+  .cv-block strong{display:block;margin:8px 0 6px}
+  .cv-block p{margin:6px 0; line-height:1.6}
+
+  .back{display:inline-block;margin:10px 0 0}
+
+  @media (max-width:760px){
+    .person{grid-template-columns:120px 1fr}
+    .person img{width:120px;height:120px}
+  }
+
+  /* mobile nav */
+  @media (max-width:680px){
+    .site-nav{
+      display:none; position:absolute; right:12px; top:100%;
+      background:linear-gradient(180deg,var(--blue-dark),var(--blue));
+      border:1px solid rgba(255,255,255,.22); border-radius:12px; padding:8px 12px; flex-direction:column; min-width:180px
+    }
+    .site-nav a{display:block; color:#fff; margin:0}
+    .site-nav.open{display:flex}
+    .nav-toggle{display:block; margin-left:auto; background:transparent; border:0; color:#fff;
+                font-size:28px; line-height:1; padding:6px 10px; cursor:pointer}
+  }
+
+  footer{padding:26px 0;border-top:1px solid var(--line);opacity:.9;font-size:14px}
+</style>
+</head>
+<body>
+  <div class="wm" aria-hidden="true"></div>
+
+<header>
+  <div class="container bar">
+    <a class="brand" href="index.html"><img src="noemac_white.png" alt="NOEMAC logo" /></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html#about">About</a>
+      <a href="index.html#asw">ASW Poseidon</a>
+      <a href="index.html#ultrasound">Portable Ultrasound</a>
+      <a href="index.html#publications">Publications</a>
+      <a class="active" href="team.html">Team</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" id="top">
+  <h1>Team</h1>
+
+  <!-- Stergios -->
+  <section id="stergios">
+    <div class="card person">
+      <div class="photo">
+        <img src="stergios.jpg" alt="Prof. Stergios Stergiopoulos">
+        <div class="social">
+          <a href="https://www.linkedin.com/in/stergiopoulos-stergios-4897598/" target="_blank" rel="noopener" aria-label="Stergios Stergiopoulos on LinkedIn" title="LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0">Prof. Stergios Stergiopoulos, Ph.D.</h2>
+        <div class="role">Chief Innovation-Technology Officer, Director</div>
+
+        <div class="cv-block">
+          <strong>Education</strong>
+          <p>Prof. Stergiopoulos received a B.Sc. (Hon.) from the University of Athens in 1976. He earned the M.Sc. in Physics in 1977 and the Ph.D. in Physics in 1982 from York University in Toronto, Canada.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Career & Appointments</strong>
+          <p>He retired from Defence R&D Canada in February 2020 while serving as Chief Scientist at DRDC Toronto. He has been appointed Adjunct Professor in the Department of Electrical and Computer Engineering at the University of Toronto and at Western University in London, Ontario.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Innovation</strong>
+          <p>He is the innovator of DRDC’s 3D advanced beamforming technologies for antisubmarine warfare sonar systems. His medical diagnostic work spans non-invasive 3D imaging, including cardiac 3D CT and portable 3D/4D ultrasound, along with vital-signs monitoring such as motion- and noise-tolerant automated blood pressure and intracranial dispersive ultrasound.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Funding and European Projects</strong>
+          <p>Dr. Stergiopoulos raised approximately 16 million dollars through Canadian and European Commission programs. He served as technical manager for the European Commission IST projects “New Roentgen,” “MITTUG,” “ADUMS,” “MRI-MARCB,” and “DUST,” as well as the Euroworkshop “Fourier.” Project partners included Siemens, Nucletron, Philips, Sema Group, Esaote, Atmel, and Fraunhofer Institutes.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Honours</strong>
+          <p>He is a Fellow of the Acoustical Society of America and a Senior Member of the IEEE.</p>
+        </div>
+
+        <a class="back" href="#top">↑ Back to top</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kostas -->
+  <section id="kostas">
+    <div class="card person">
+      <div class="photo">
+        <img src="kostas.jpg" alt="Prof. Konstantinos N. Plataniotis">
+        <div class="social">
+          <a href="https://www.linkedin.com/in/kostas-plataniotis-b360811/" target="_blank" rel="noopener" aria-label="Konstantinos N. Plataniotis on LinkedIn" title="LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0">Prof. Konstantinos (Kostas) N. Plataniotis, Ph.D., P.Eng., FEIC, FCAE, FIEEE</h2>
+        <div class="role">Chief Executive Officer</div>
+
+        <div class="cv-block">
+          <strong>Education</strong>
+          <p>Prof. Plataniotis received the B.Eng. in Computer Engineering from the University of Patras in Greece. He earned the M.S. and Ph.D. in Electrical Engineering from the Florida Institute of Technology in Melbourne, Florida.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Academic and Leadership Roles</strong>
+          <p>He is a Professor in the Edward S. Rogers Sr. Department of Electrical and Computer Engineering at the University of Toronto, where he directs the Multimedia Laboratory. He also serves as Director of the Machine Intelligence Major in the Engineering Science Program. He has held the Bell Canada Endowed Chair in Multimedia since 2014.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Professional Service</strong>
+          <p>Prof. Plataniotis is a registered professional engineer in Ontario and a Fellow of the IEEE, the Engineering Institute of Canada, and the Canadian Academy of Engineering. He served as General Chair for IEEE GlobalSIP 2017, IEEE ICIP 2018, and IEEE ICASSP 2021. He has been Editor-in-Chief of <em>IEEE Signal Processing Letters</em> and Guest Editor for <em>IEEE Signal Processing Magazine</em>. He is currently President of the IEEE Signal Processing Society, representing more than twenty-three thousand members.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Research Interests</strong>
+          <p>His research focuses on image and signal processing, machine learning, adaptive learning systems, visual data analysis, human-machine teaming, and autonomous systems.</p>
+        </div>
+
+        <a class="back" href="#top">↑ Back to top</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stamatis -->
+  <section id="stamatis">
+    <div class="card person">
+      <div class="photo">
+        <img src="stamatis.jpg" alt="Stamatis Tzelepis">
+        <div class="social">
+          <a href="https://www.linkedin.com/in/stamatis-tzelepis/" target="_blank" rel="noopener" aria-label="Stamatis Tzelepis on LinkedIn" title="LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0">Stamatis Tzelepis, Ph.D.</h2>
+        <div class="role">Chief Software Engineer</div>
+        <div class="cv-block">
+          <p>Dr. Tzelepis works in signal processing and software engineering for ultrasound and maritime sensing systems.</p>
+        </div>
+        <a class="back" href="#top">↑ Back to top</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Georgios Karagiannis -->
+  <section id="karagiannis">
+    <div class="card person">
+      <div class="photo">
+        <img src="karagiannis_g.jpg" alt="Dr. Georgios Karagiannis">
+        <div class="social">
+          <a href="https://www.linkedin.com/in/karagiannis-georgios-6a290042/" target="_blank" rel="noopener" aria-label="Georgios Karagiannis on LinkedIn" title="LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0">Georgios Karagiannis, Ph.D.</h2>
+        <div class="role">Chief Hardware Architect</div>
+
+        <div class="cv-block">
+          <strong>Profile</strong>
+          <p>Dr. Karagiannis is Scientific Director of the «ORMYLIA» Foundation and has been a scientific collaborator of the Foundation since January 1997. His work spans non-destructive testing, multispectral and spectroscopic imaging, signal processing, and knowledge management, with emphasis on the combined and optimized use of these methods in scientific and industrial applications.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Projects and Service</strong>
+          <p>Since 1998 he has coordinated and participated in European R&amp;D and industrial projects in art-object diagnosis and documentation, biomedical diagnosis, image and signal processing, and knowledge management. He serves as a reviewer for scientific journals and as an evaluator for European Commission RTD projects. He has contributed to technical and scientific committees of international conferences and has chaired special sessions.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Teaching</strong>
+          <p>Since 1998 he has taught in the Master’s program in Conservation and Restoration of Art Objects at the School of Engineering of Aristotle University of Thessaloniki.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Publications and Intellectual Property</strong>
+          <p>He has authored more than twenty publications in international journals, delivered over fifty-five conference presentations, and given seventeen invited lectures. His portfolio includes two national patents and one international patent. He is a member of the Technical Chamber of Greece.</p>
+        </div>
+
+        <a class="back" href="#top">↑ Back to top</a>
+      </div>
+    </div>
+  </section>
+
+<!-- Georgios Sakkas -->
+<section id="sakkas">
+  <div class="card person">
+    <div class="photo">
+      <img src="sakkas_g.jpg" alt="Georgios Sakkas">
+      <div class="social">
+        <a href="https://www.linkedin.com/in/georgios-sakas-12a6a17/" target="_blank" rel="noopener" aria-label="Georgios Sakkas on LinkedIn" title="LinkedIn">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h2 style="margin:0">Georgios Sakkas</h2>
+      <div class="role">Chief Software Imaging</div>
+
+      <div class="cv-block">
+        <strong>Education</strong>
+        <p>Diploma (MSc) in Computer Engineering, 1987. Ph.D. in Computer Graphics, 1992.</p>
+      </div>
+
+      <div class="cv-block">
+        <strong>Academic Appointments</strong>
+        <p>Honorary Professor at the Technical University of Darmstadt and at the National Technical University of Athens.</p>
+      </div>
+
+      <div class="cv-block">
+        <strong>Leadership & Entrepreneurship</strong>
+        <p>Head of the “Cognitive Computing & Medical Imaging” department at Fraunhofer IGD from 1994 to 2011. Founder and CEO of MedCom GmbH since 1997. Co-founder and board member of several companies.</p>
+      </div>
+
+      <div class="cv-block">
+        <strong>Research</strong>
+        <p>Medical imaging, treatment and navigation, and image processing.</p>
+      </div>
+
+      <div class="cv-block">
+        <strong>Publications & Recognition</strong>
+        <p>Supervisor of 23 Ph.D. theses. Co-author of about 200 publications in books, journals, and conferences. Recipient of more than a dozen scientific awards.</p>
+      </div>
+
+      <div class="cv-block">
+        <strong>Professional Service</strong>
+        <p>Member of scientific and professional boards. Editorial board member and organizer for conferences and magazines.</p>
+      </div>
+
+      <a class="back" href="#top">↑ Back to top</a>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Christos Korgialas -->
+  <section id="christos">
+    <div class="card person">
+      <div class="photo">
+        <img src="christos.jpg" alt="Christos Korgialas">
+        <div class="social">
+          <a href="https://www.linkedin.com/in/christos-korgialas-4b169a187/" target="_blank" rel="noopener" aria-label="LinkedIn (add URL)" title="LinkedIn (add URL)">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0">Christos Korgialas, PhD(c)</h2>
+        <div class="role">Senior Software Engineer</div>
+
+        <div class="cv-block">
+          <strong>Education</strong>
+          <p>Christos received a B.Sc. in Physics from the University of Patras in 2020 and an M.Sc. in Digital Media – Computational Intelligence from the Informatics Department of Aristotle University of Thessaloniki in 2022. He is currently pursuing a Ph.D. with the Department of Informatics at Aristotle University, in the Artificial Intelligence and Information Analysis Laboratory.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Research and Publications</strong>
+          <p>He works as a doctoral researcher on funded projects and has co-authored four journal papers and eight conference papers. His interests include multimodal information analysis, multimedia forensics, signal processing, explainable artificial intelligence, and machine learning.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Community and Service</strong>
+          <p>He has served as a reviewer and volunteer at international conferences and co-organized the AEGIS summer school. He was a visiting researcher at the Multimedia Laboratory of the University of Toronto. He is a Graduate Student Member of the IEEE and the IEEE Signal Processing Society.</p>
+        </div>
+
+        <a class="back" href="#top">↑ Back to top</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ilda Hobdari -->
+  <section id="ilda">
+    <div class="card person">
+      <div class="photo">
+        <img src="ilda.jpg" alt="Dr. Ilda Hobdari">
+        <div class="social">
+          <a href="https://www.linkedin.com/in/ilda-hobdari-81b73453/" target="_blank" rel="noopener" aria-label="Ilda Hobdari on LinkedIn" title="LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0">Dr. Ilda Hobdari, M.D., CCFP</h2>
+        <div class="role">Medical Practice Adviser</div>
+
+        <div class="cv-block">
+          <strong>Education and Training</strong>
+          <p>Dr. Hobdari graduated with an M.D. from Carol Davila University of Medicine and Pharmacy in Bucharest in 1999. She completed a five-year residency in Obstetrics and Gynecology at Polizu Women’s Hospital, within the Institute of Mother and Child Care in Bucharest, and is certified as a specialist in Obstetrics and Gynecology by the Romanian Ministry of Health.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Professional Practice</strong>
+          <p>In 2009 she completed a Family Medicine Residency at the University of Western Ontario. She is board-certified by the College of Family Physicians of Canada and practices in Woodbridge, Ontario. She also serves as a Director and Medical Practice Adviser for INDECEXON Inc. in Toronto.</p>
+        </div>
+
+        <div class="cv-block">
+          <strong>Ultrasound Credentials</strong>
+          <p>She is certified in Obstetrics and Gynecology ultrasonography by Carol Davila University and has additional training in abdominal and pelvic ultrasonography at the Michener Institute in Toronto.</p>
+        </div>
+
+        <a class="back" href="#top">↑ Back to top</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container">© <span id="y"></span> NOEMAC. All rights reserved.</div></footer>
+
+<script>
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+  // shrink header on scroll
+  const headerEl = document.querySelector('header');
+  window.addEventListener('scroll',()=>{ headerEl.classList.toggle('shrink',window.scrollY>10); });
+
+  // mobile menu
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.site-nav');
+  btn?.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>
+</body>
+</html>
