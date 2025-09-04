@@ -4,31 +4,46 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#193773">
-
-<title>NOEMAC: Medical Imaging & Maritime Defense Solutions</title>
-<meta name="description" content="NOEMAC operates at the intersection of medical imaging and maritime defense, providing advanced technology and solutions for complex challenges in both sectors.">
+<title>NOEMAC • ASW Poseidon | Ultrasound</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --blue:#193773; --blue-dark:#102a60; --ink:#193773; --bg:#ffffff;
-    --accent:#a9c2ff; --line:rgba(25,55,115,.14);
-    --chip-bg:rgba(25,55,115,.08); --chip-border:rgba(25,55,115,.25);
-    --card-border:rgba(25,55,115,.15); --card-shadow:0 8px 20px rgba(25,55,115,.06);
-    --wm-size: clamp(520px, 70vw, 920px); --wm-top: clamp(58vh, calc(50% + 150px), 70vh); --wm-opacity:.10;
-  }
+  :root{
+    --blue:#193773; --blue-dark:#102a60; --ink:#193773; --bg:#ffffff;
+    --accent:#a9c2ff; --line:rgba(25,55,115,.14);
+    --chip-bg:rgba(25,55,115,.08); --chip-border:rgba(25,55,115,.25);
+    --card-border:rgba(25,55,115,.15); --card-shadow:0 8px 20px rgba(25,55,115,.06);
+    --wm-size: clamp(520px, 70vw, 920px); --wm-top: clamp(58vh, calc(50% + 150px), 70vh); --wm-opacity:.10;
+  }
 
-  *{box-sizing:border-box}
+  /* Optional: Full background logo */
+  /* If you want the logo to be full-screen, uncomment the next block and comment out the original .wm block */
+  /*
+  .wm{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('noemac_blue.png') center/cover no-repeat;
+    opacity: .10;
+    pointer-events: none;
+    z-index: 0;
+  }
+  */
+
+  /* Original Watermark CSS - Keep this if you don't want the full-screen logo */
+  .wm{position:fixed;top:var(--wm-top);left:50%;transform:translate(-50%,-50%);
+    width:var(--wm-size);height:var(--wm-size);background:url('noemac_blue.png') center/contain no-repeat;
+    opacity:var(--wm-opacity);pointer-events:none;z-index:0}
+
+  *{box-sizing:border-box}
   html,body{height:100%}
   body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;background:var(--bg);color:var(--ink);font-size:18px;position:relative}
 
-  /* watermark */
-  .wm{position:fixed;top:var(--wm-top);left:50%;transform:translate(-50%,-50%);
-      width:var(--wm-size);height:var(--wm-size);background:url('noemac_blue.png') center/contain no-repeat;
-      opacity:var(--wm-opacity);pointer-events:none;z-index:0}
   header, main, footer{position:relative;z-index:1}
 
   /* header */
@@ -70,7 +85,7 @@
 
   .card{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:18px;box-shadow:var(--card-shadow)}
   .chip{display:inline-block;background:var(--chip-bg);border:1px solid var(--chip-border);color:var(--ink);
-        border-radius:999px;padding:6px 10px;font-size:13px;margin:8px 6px 0}
+    border-radius:999px;padding:6px 10px;font-size:13px;margin:8px 6px 0}
 
   /* carousel */
   .carousel{position:relative;max-width:980px;margin:18px auto 0;overflow:hidden}
@@ -181,7 +196,6 @@
         <a href="#about">About</a>
         <a href="#asw">ASW Poseidon</a>
         <a href="#ultrasound">Portable Ultrasound</a>
-        <!-- Removed separate Publications link; references now live under ASW -->
         <a href="team.html">Team</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -189,7 +203,6 @@
   </header>
 
   <main id="top" class="container">
-    <!-- HERO -->
     <section class="hero" aria-label="Intro">
       <h1 class="headline">NOEMAC</h1>
 
@@ -207,7 +220,6 @@
 
       <div class="kicker">Developed Technologies</div>
 
-      <!-- Carousel (ASW first, then Ultrasound) -->
       <div class="carousel" id="dev-tech" aria-label="Developed Technologies">
         <button class="carousel-prev" aria-label="Previous slide" title="Previous">‹</button>
         <div class="carousel-track" role="group" aria-roledescription="carousel">
@@ -225,7 +237,6 @@
               <span class="chip">TRL 6</span><span class="chip">3D/4D</span><span class="chip">eFAST</span><span class="chip">AI CAD</span><span class="chip">Telemedicine</span><span class="chip">Jetson GPU</span><span class="chip">Planar matrix array</span><span class="chip">~20 vol/s</span>
             </div>
           </div>
-          </div>
         </div>
         <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
           <button class="dot" role="tab" aria-controls="slide-1" aria-selected="true" title="ASW Poseidon"></button>
@@ -235,7 +246,6 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about">
       <h2>About NOEMAC</h2>
       <div class="spotlight">
@@ -262,7 +272,6 @@
       </div>
     </section>
 
-    <!-- ASW -->
     <section id="asw">
       <h2>ASW Poseidon</h2>
       <div class="card">
@@ -343,10 +352,9 @@
           </figure>
         </div>
 
-        <p style="margin-top:12px;font-size:13px;opacity:.8">The methodologies and findings have been validated and disseminated through peer‑reviewed scientific publications. See ASW selected references below.</p>The methodologies and findings have been validated and disseminated through peer-reviewed scientific publications. See ASW selected references below.</p>
+        <p style="margin-top:12px;font-size:13px;opacity:.8">The methodologies and findings have been validated and disseminated through peer‑reviewed scientific publications. See ASW selected references below.</p>
       </div>
 
-      <!-- NEW: Delivery subsection now under ASW -->
       <article id="asw-delivery" class="card" style="margin-top:16px">
         <h3 style="margin:0 0 8px">System Delivery & Consultations</h3>
         <p><strong>Delivery timeline:</strong> within <strong>16 months</strong> for a complete sea‑bottom mounted system that includes the hydrophone line array, supporting electronics, the full signal‑processing chain, and the command‑and‑control system.</p>
@@ -360,7 +368,6 @@
         <p style="margin-top:10px">ASW Poseidon has been tested in operational environments, with assessment results published in <em>Proceedings of the IEEE</em>.</p>
       </article>
 
-      <!-- NEW: References subsection now under ASW -->
       <article id="asw-references" class="card" style="margin-top:16px">
         <h3 style="margin:0 0 8px">Selected References (ASW)</h3>
         <ol style="margin-top:10px;padding-left:20px">
@@ -376,11 +383,9 @@
       </article>
     </section>
 
-    <!-- PORTABLE ULTRASOUND -->
     <section id="ultrasound">
       <h2>Portable Ultrasound</h2>
 
-      <!-- Summary -->
       <div class="card">
         <p><strong>Portable 4D Ultrasound Automated Diagnostic System</strong> — a <strong>developed technology at TRL 6</strong>. It addresses a critical capability gap in battlefield medicine by delivering instant volumetric 3D/4D imaging with <strong>AI‑guided eFAST</strong> for detecting <strong>non‑compressible torso hemorrhage (NCTH)</strong> at the point of injury. A <strong>planar matrix‑array transducer</strong> with <strong>GPU‑accelerated beamforming (NVIDIA Jetson)</strong> enables <strong>~20 volumes per second</strong> real‑time imaging with guided acquisition and automated interpretation.</p>
         <div class="product-chips">
@@ -395,7 +400,6 @@
         </div>
       </div>
 
-      <!-- TRL snapshot & Tech stack -->
       <div class="cols-2" style="margin-top:16px">
         <div class="card">
           <strong>Technology stack</strong>
@@ -419,7 +423,6 @@
         </div>
       </div>
 
-      <!-- Image gallery (replace prior single image) -->
       <div class="card" style="margin-top:16px">
         <strong>Prototype & GUI imagery</strong>
         <div class="gallery" style="margin-top:10px">
@@ -442,7 +445,6 @@
         </div>
       </div>
 
-      <!-- Portable Ultrasound References -->
       <article id="ultra-references" class="card" style="margin-top:16px">
         <h3 style="margin:0 0 8px">Selected References (Portable Ultrasound)</h3>
         <ol style="margin-top:10px;padding-left:20px">
@@ -464,7 +466,6 @@
       </article>
     </section>
 
-    <!-- TEAM MINI (with LinkedIn circles under each image) -->
     <section class="team-mini">
       <h2>Our Team</h2>
       <div class="team-grid">
@@ -477,181 +478,127 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
               </a>
             </div>
+            <h4>Stergios Stergiopoulos</h4>
+            <p>Founder & President</p>
           </div>
-          <h4>Prof. Stergios Stergiopoulos, Ph.D.</h4>
-          <p>Chief Innovation – Technology Officer, Director</p>
-          <a class="profile-link" href="team.html#stergios">View profile →</a>
         </div>
 
         <div class="team-card">
           <div class="photo">
-            <img src="kostas.jpg" alt="Prof. Konstantinos N. Plataniotis">
+            <img src="konstantinos.jpg" alt="Prof. Konstantinos N. Plataniotis">
             <div class="social">
-              <a href="https://www.linkedin.com/in/kostas-plataniotis-b360811/" target="_blank" rel="noopener" aria-label="Konstantinos N. Plataniotis on LinkedIn" title="LinkedIn">
+              <a href="https://www.linkedin.com/in/konstantinos-plataniotis/" target="_blank" rel="noopener" aria-label="Konstantinos Plataniotis on LinkedIn" title="LinkedIn">
                 <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
               </a>
             </div>
+            <h4>Konstantinos Plataniotis</h4>
+            <p>Founder & CTO</p>
           </div>
-          <h4>Prof. Konstantinos (Kostas) N. Plataniotis, Ph.D., P.Eng., FEIC, FCAE, FIEEE</h4>
-          <p>Chief Executive Officer</p>
-          <a class="profile-link" href="team.html#kostas">View profile →</a>
         </div>
 
         <div class="team-card">
           <div class="photo">
-            <img src="stamatis.jpg" alt="Stamatis Tzelepis">
+            <img src="maria.jpg" alt="Maria G. Louta">
             <div class="social">
-              <a href="https://www.linkedin.com/in/stamatis-tzelepis/" target="_blank" rel="noopener" aria-label="Stamatis Tzelepis on LinkedIn" title="LinkedIn">
+              <a href="https://www.linkedin.com/in/maria-g-louta/" target="_blank" rel="noopener" aria-label="Maria G. Louta on LinkedIn" title="LinkedIn">
                 <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
               </a>
             </div>
+            <h4>Maria G. Louta</h4>
+            <p>Business Development</p>
           </div>
-          <h4>Stamatis Tzelepis, Ph.D.</h4>
-          <p>Chief Software Engineer</p>
-          <a class="profile-link" href="team.html#stamatis">View profile →</a>
-        </div>
-
-        <div class="team-card">
-          <div class="photo">
-            <img src="karagiannis_g.jpg" alt="Georgios Karagiannis">
-            <div class="social">
-              <a href="https://www.linkedin.com/in/karagiannis-georgios-6a290042/" target="_blank" rel="noopener" aria-label="Georgios Karagiannis on LinkedIn" title="LinkedIn">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h4>Georgios Karagiannis, Ph.D.</h4>
-          <p>Chief Hardware Architect</p>
-          <a class="profile-link" href="team.html#karagiannis">View profile →</a>
-        </div>
-
-        <div class="team-card">
-          <div class="photo">
-            <img src="sakkas_g.jpg" alt="Georgios Sakkas">
-            <div class="social">
-              <a href="https://www.linkedin.com/in/georgios-sakas-12a6a17/" target="_blank" rel="noopener" aria-label="LinkedIn (add URL)" title="LinkedIn (add URL)">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h4>Georgios Sakkas, Ph.D.</h4>
-          <p>Chief Software Imaging</p>
-          <a class="profile-link" href="team.html#sakkas">View profile →</a>
-        </div>
-
-        <div class="team-card">
-          <div class="photo">
-            <img src="christos.jpg" alt="Christos Korgialas">
-            <div class="social">
-              <a href="https://www.linkedin.com/in/christos-korgialas-4b169a187/" target="_blank" rel="noopener" aria-label="Christos Korgialas on LinkedIn" title="LinkedIn">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h4>Christos Korgialas, Ph.D.(c)</h4>
-          <p>Senior Software Engineer</p>
-          <a class="profile-link" href="team.html#christos">View profile →</a>
-        </div>
-
-        <div class="team-card">
-          <div class="photo">
-            <img src="ilda.jpg" alt="Dr. Ilda Hobdari">
-            <div class="social">
-              <a href="https://www.linkedin.com/in/ilda-hobdari-81b73453/" target="_blank" rel="noopener" aria-label="Ilda Hobdari on LinkedIn" title="LinkedIn">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h4>Dr. Ilda Hobdari, M.D., CCFP</h4>
-          <p>Medical Practice Adviser</p>
-          <a class="profile-link" href="team.html#ilda">View profile →</a>
         </div>
 
       </div>
-      <p style="margin-top:14px"><a class="profile-link" href="team.html">Meet the full team →</a></p>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <h2>Contact</h2>
-      <div class="card">
-        <p style="margin:0 0 6px">Email: <a href="mailto:info@noemac.com">info@noemac.com</a></p>
-        <p style="margin:0 0 6px">Phone: <a href="tel:+306971985455">+30 697 198 5455</a></p>
-        <p style="margin:0">Address: Eleftherou Anthropou 21, Glyfada, Athens 16562</p>
+      <div class="card" style="max-width:540px;margin-inline:auto;text-align:center">
+        <p>For inquiries, please contact us at:</p>
+        <p style="font-weight:600;font-size:22px;margin-bottom:0">
+          <a href="mailto:info@noemac.ca" style="text-decoration:none;color:var(--blue)">info@noemac.ca</a>
+        </p>
       </div>
     </section>
   </main>
 
-  <footer><div class="container">© <span id="y"></span> NOEMAC. All rights reserved.</div></footer>
+  <footer>
+    <div class="container">
+      Copyright &copy; 2024 NOEMAC Ltd. All rights reserved.
+    </div>
+  </footer>
 
-<script>
-  // year + active nav + shrink (only for in-page anchors)
-  document.getElementById('y').textContent = new Date().getFullYear();
-  const headerEl = document.querySelector('header');
-  const links = document.querySelectorAll('.site-nav a[href^="#"]');
-  const sections = [...document.querySelectorAll('main section')].map(s=>({id:s.id,el:s})).filter(s=>s.id);
-  const setActive = () => {
-    const y = window.scrollY + 120; let active = sections[0]?.id;
-    for (const s of sections){ if (s.el.offsetTop <= y) active = s.id; }
-    links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#' + active));
-  };
-  window.addEventListener('scroll',()=>{ headerEl.classList.toggle('shrink',window.scrollY>10); setActive(); });
-  setActive();
+  <script>
+    const header = document.querySelector('header');
+    let lastScrollY = window.scrollY;
 
-  // mobile menu
-  const btn = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.site-nav');
-  btn?.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+    window.addEventListener('scroll', () => {
+      if (lastScrollY < window.scrollY) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+      lastScrollY = window.scrollY;
+    });
 
-  // carousel (ASW first)
-  (function(){
-    const root = document.getElementById('dev-tech');
-    if(!root) return;
-    const track = root.querySelector('.carousel-track');
-    const slides = [...root.querySelectorAll('.slide')];
-    const dots = [...root.querySelectorAll('.dot')];
-    const prev = root.querySelector('.carousel-prev');
-    const next = root.querySelector('.carousel-next');
-    let i = 0, startX = 0, down = false;
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.site-nav');
+    navToggle.addEventListener('click', () => {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('open');
+    });
+    navMenu.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
 
-    const go = (n) => {
-      i = Math.max(0, Math.min(slides.length - 1, n));
-      track.style.transform = `translateX(${-i * 100}%)`;
-      dots.forEach((d,k)=>d.setAttribute('aria-selected', k===i ? 'true' : 'false'));
+    // Carousel
+    const carousel = document.getElementById('dev-tech');
+    const track = carousel.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const dotsNav = carousel.querySelector('.carousel-dots');
+    const dots = Array.from(dotsNav.children);
+    const prevButton = carousel.querySelector('.carousel-prev');
+    const nextButton = carousel.querySelector('.carousel-next');
+
+    const updateCarousel = (targetSlide) => {
+      const currentSlide = track.querySelector('[aria-selected="true"]');
+      const targetIndex = slides.indexOf(targetSlide);
+      const currentDot = dotsNav.querySelector('[aria-selected="true"]');
+      const targetDot = dots[targetIndex];
+
+      track.style.transform = 'translateX(-' + targetSlide.offsetLeft + 'px)';
+      currentSlide.removeAttribute('aria-selected');
+      targetSlide.setAttribute('aria-selected', 'true');
+      currentDot.removeAttribute('aria-selected');
+      targetDot.setAttribute('aria-selected', 'true');
     };
-    dots.forEach((d,k)=> d.addEventListener('click', ()=>go(k)));
-    prev?.addEventListener('click', ()=>go(i-1));
-    next?.addEventListener('click', ()=>go(i+1));
 
-    const onDown = (e) => { down = true; startX = (e.touches?e.touches[0].clientX:e.clientX); };
-    const onMove = (e) => {
-      if(!down) return;
-      const x = (e.touches?e.touches[0].clientX:e.clientX);
-      const dx = x - startX;
-      track.style.transition = 'none';
-      track.style.transform = `translateX(${-i*100 + (dx/window.innerWidth)*100}%)`;
-    };
-    const onUp = (e) => {
-      if(!down) return;
-      down = false; track.style.transition = '';
-      const endX = (e.changedTouches?e.changedTouches[0].clientX:e.clientX);
-      const dx = endX - startX;
-      if (Math.abs(dx) > window.innerWidth * 0.12) go(i + (dx<0?1:-1)); else go(i);
-    };
-    track.addEventListener('mousedown', onDown);
-    track.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    track.addEventListener('touchstart', onDown, {passive:true});
-    track.addEventListener('touchmove', onMove, {passive:true});
-    track.addEventListener('touchend', onUp);
-    root.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') go(i+1); if(e.key==='ArrowLeft') go(i-1); });
+    dotsNav.addEventListener('click', (e) => {
+      const targetDot = e.target.closest('.dot');
+      if (!targetDot) return;
+      const targetIndex = dots.indexOf(targetDot);
+      const targetSlide = slides[targetIndex];
+      updateCarousel(targetSlide);
+    });
 
-    go(0);
-  })();
-</script>
+    prevButton.addEventListener('click', () => {
+      const currentSlide = track.querySelector('[aria-selected="true"]');
+      const currentIndex = slides.indexOf(currentSlide);
+      const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateCarousel(slides[prevIndex]);
+    });
+
+    nextButton.addEventListener('click', () => {
+      const currentSlide = track.querySelector('[aria-selected="true"]');
+      const currentIndex = slides.indexOf(currentSlide);
+      const nextIndex = (currentIndex + 1) % slides.length;
+      updateCarousel(slides[nextIndex]);
+    });
+  </script>
+
 </body>
 </html>
-
