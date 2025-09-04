@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
   <url>
     <loc>https://noemac-web.github.io/noemac/</loc>
     <priority>1.0</priority>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/noemac_blue.png</image:loc></image:image>
+
+    <!-- ASW figures -->
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ASW_1.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ASW_2.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ASW_3.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ASW_4.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ASW_5.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ASW_6.png</image:loc></image:image>
+
+    <!-- Portable Ultrasound figures -->
+    <image:image><image:loc>https://noemac-web.github.io/noemac/CAN_1.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/CAN_2.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/CAN_3.png</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/CAN_4.png</image:loc></image:image>
+
+    <!-- Team thumbs shown on homepage -->
+    <image:image><image:loc>https://noemac-web.github.io/noemac/stergios.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/konstantinos.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/maria.jpg</image:loc></image:image>
   </url>
+
+  <!-- Team page -->
   <url>
     <loc>https://noemac-web.github.io/noemac/team.html</loc>
     <priority>0.8</priority>
+
+    <!-- Team photos used on team.html -->
+    <image:image><image:loc>https://noemac-web.github.io/noemac/stergios.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/kostas.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/stamatis.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/karagiannis_g.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/sakkas_g.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/christos.jpg</image:loc></image:image>
+    <image:image><image:loc>https://noemac-web.github.io/noemac/ilda.jpg</image:loc></image:image>
   </url>
+
 </urlset>
